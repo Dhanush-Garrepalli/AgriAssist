@@ -56,7 +56,11 @@ if st.button('Analyze'):
     # Note: Add the rest of your feature inputs here in the correct order
     input_features = scaler.transform([[n, p, k, ph, pc,oc,s,zn,fe,cu,mn,b]])  # Fill in the rest of the inputs
     prediction = model.predict(input_features)
-    st.write(f'The prediction is: {prediction[0]}')
+    if prediction[0] == 0:
+        result = "Low Fertile"
+    else:
+        result = "High Fertile"
+    st.write(f'The prediction is: {result}')
 
 
 
