@@ -40,14 +40,14 @@ n = st.number_input('Enter Nitrogen level:')
 p = st.number_input('Enter Phosphorus level:')
 k = st.number_input('Enter Potassium level:')
 
-ec = st.number_input('Enter Potassium level:')
-oc = st.number_input('Enter Potassium level:')
-s = st.number_input('Enter Potassium level:')
-zn = st.number_input('Enter Potassium level:')
-fe = st.number_input('Enter Potassium level:')
-cu = st.number_input('Enter Potassium level:')
-mn = st.number_input('Enter Potassium level:')
-b = st.number_input('Enter Potassium level:')
+ec = st.number_input('Enter EC level:', key='ec')
+oc = st.number_input('Enter OC level:', key='oc')
+s = st.number_input('Enter S level:', key='s')
+zn = st.number_input('Enter Zn level:', key='zn')
+fe = st.number_input('Enter Fe level:', key='fe')
+cu = st.number_input('Enter Cu level:', key='cu')
+mn = st.number_input('Enter Mn level:', key='mn')
+b = st.number_input('Enter B level:', key='b')
 
 
 # Add inputs for the rest of the features
