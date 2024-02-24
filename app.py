@@ -56,17 +56,17 @@ if st.button('Analyze'):
     result = "High Fertile" if prediction[0] == 1 else "Low Fertile"
     st.write(f'The prediction is: {result}')
 
-if ph < mean_thresholds['pH']:
-    st.write('pH level is below average')
-if n < mean_thresholds['N']:
-    st.write('n level is below average')
-if p < mean_thresholds['P']:
-    st.write('p level is below average')
-if k < mean_thresholds['K']:
-    st.write('k level is below average')
-if zn < mean_thresholds['Zn']:
-    st.write('zn level is below average')
-if fe < mean_thresholds['Fe']:
-    st.write('fe level is below average')
+    if ph < mean_thresholds['pH']:
+        st.write('pH level is below average')
+    if n < mean_thresholds['N']:
+        st.write('n level is below average')
+    if p < mean_thresholds['P']:
+        st.write('p level is below average')
+    if k < mean_thresholds['K']:
+        st.write('k level is below average')
+    if zn < mean_thresholds['Zn']:
+        st.write('zn level is below average')
+    if fe < mean_thresholds['Fe']:
+        st.write('fe level is below average')
 
 
