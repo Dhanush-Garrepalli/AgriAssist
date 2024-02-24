@@ -13,6 +13,7 @@ df = pd.read_csv(url)
 # Prepare the data
 X = df[['N', 'P', 'K', 'pH', 'Zn', 'Fe']]  # Features
 y = df['Output']  # Target variable
+mean_thresholds = df[['N', 'P', 'K', 'pH', 'Zn', 'Fe']].mean()
 
 # Split the data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -47,9 +48,24 @@ k = st.number_input('Enter Potassium level:')
 zn = st.number_input('Enter Zn level:', key='zn')
 fe = st.number_input('Enter Fe level:', key='fe')
 
+if ph < mean_thresholds['pH']:
+    st.write('pH level is below average')
+if n < mean_thresholds['N']:
+    st.write('n level is below average')
+if p < mean_thresholds['P']:
+    st.write('p level is below average')
+if k < mean_thresholds['K']:
+    st.write('k level is below average')
+if zn < mean_thresholds['Zn']:
+    st.write('zn level is below average')
+if fe < mean_thresholds['Fe']:
+    st.write('fe level is below average')
+
 if st.button('Analyze'):
     input_features = scaler.transform([[n, p, k, ph, zn, fe]])  # Original feature inputs
     input_features_pca = pca.transform(input_features)  # Transform input features with PCA
     prediction = model.predict(input_features_pca)
     result = "High Fertile" if prediction[0] == 1 else "Low Fertile"
     st.write(f'The prediction is: {result}')
+
+
