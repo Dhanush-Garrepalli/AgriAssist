@@ -48,6 +48,14 @@ k = st.number_input('Enter Potassium level:')
 zn = st.number_input('Enter Zn level:', key='zn')
 fe = st.number_input('Enter Fe level:', key='fe')
 
+
+if st.button('Analyze'):
+    input_features = scaler.transform([[n, p, k, ph, zn, fe]])  # Original feature inputs
+    input_features_pca = pca.transform(input_features)  # Transform input features with PCA
+    prediction = model.predict(input_features_pca)
+    result = "High Fertile" if prediction[0] == 1 else "Low Fertile"
+    st.write(f'The prediction is: {result}')
+
 if ph < mean_thresholds['pH']:
     st.write('pH level is below average')
 if n < mean_thresholds['N']:
@@ -60,12 +68,5 @@ if zn < mean_thresholds['Zn']:
     st.write('zn level is below average')
 if fe < mean_thresholds['Fe']:
     st.write('fe level is below average')
-
-if st.button('Analyze'):
-    input_features = scaler.transform([[n, p, k, ph, zn, fe]])  # Original feature inputs
-    input_features_pca = pca.transform(input_features)  # Transform input features with PCA
-    prediction = model.predict(input_features_pca)
-    result = "High Fertile" if prediction[0] == 1 else "Low Fertile"
-    st.write(f'The prediction is: {result}')
 
 
