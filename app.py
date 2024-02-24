@@ -27,6 +27,6 @@ p = st.number_input('Enter Phosphorus level:')
 k = st.number_input('Enter Potassium level:')
 
 if st.button('Analyze'):
-    input_features = scaler.transform([[ph, n, p, k]])
+    input_features = scaler.transform([[PH, N, P, K]])
     prediction = model.predict(input_features)
     st.write(f'The prediction is: {prediction[0]}')
