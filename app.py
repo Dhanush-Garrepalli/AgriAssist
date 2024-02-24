@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
 
-url = 'https://raw.githubusercontent.com/Dhanush-Garrepalli/AgriAssist/main/dataset_soil_nutrients.csv'
+url = 'https://raw.githubusercontent.com/Dhanush-Garrepalli/AgriAssist/main/dataset_soil_nutrients_npk.csv'
 df = pd.read_csv(url)
 
 X = df.iloc[:, :-1].values
@@ -27,6 +27,6 @@ p = st.number_input('Enter Phosphorus level:')
 k = st.number_input('Enter Potassium level:')
 
 if st.button('Analyze'):
-    input_features = scaler.transform([[PH, N, P, K]])
+    input_features = scaler.transform([[ph, n, p, k]])
     prediction = model.predict(input_features)
     st.write(f'The prediction is: {prediction[0]}')
