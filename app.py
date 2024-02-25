@@ -14,6 +14,8 @@ df = pd.read_csv(url)
 X = df[['N', 'P', 'K', 'pH', 'Zn', 'Fe', 'EC', 'OC', 'S', 'Cu', 'Mn', 'B']]
 y = df['Output']
 
+mean_thresholds = df[['N', 'P', 'K', 'pH', 'Zn', 'Fe', 'EC', 'OC', 'S', 'Cu', 'Mn', 'B']].mean()
+
 # Scale features
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
@@ -55,3 +57,16 @@ if st.button('Analyze'):
     prediction = model.predict(input_pca)
     result = "High Fertile" if prediction[0] == 1 else "Low Fertile"
     st.write(f'The prediction is: {result}')
+
+    if ph < mean_thresholds['pH']:
+        st.write('pH level is below average')
+    if n < mean_thresholds['N']:
+        st.write('Nitrogen-deficient plants produce smaller than normal fruit, leaves, and shoots and these can develop later than normal')
+    if p < mean_thresholds['P']:
+        st.write('Phosphorus deficiency can cause leaves to darken and take on a dull, blue-green hue, which may lighten to pale in more extreme cases')
+    if k < mean_thresholds['K']:
+        st.write('Potassium deficiency in broadleaves causes leaves to turn yellow and then brown at the tips and margins and between veins.')
+    if zn < mean_thresholds['Zn']:
+        st.write('Zinc deficiency negatively affects plant growth.')
+    if fe < mean_thresholds['Fe']:
+        st.write('Fe Iron deficiency will turn leaves to yellow')
