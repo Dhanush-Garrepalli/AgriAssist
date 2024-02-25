@@ -24,6 +24,11 @@ X_scaled = scaler.fit_transform(X)
 pca = PCA(n_components=6)
 X_pca = pca.fit_transform(X_scaled)
 
+# Calculate total importance of each feature across all PCA components
+total_importance = np.abs(pca.components_).sum(axis=0)
+sorted_indices = np.argsort(total_importance)[::-1]
+top_features = X.columns[sorted_indices][:6].tolist()
+
 # Train a RandomForestClassifier on the PCA-reduced dataset
 X_train_pca, X_test_pca, y_train, y_test = train_test_split(X_pca, y, test_size=0.2, random_state=42)
 model = RandomForestClassifier(n_estimators=100, random_state=42)
@@ -31,22 +36,30 @@ model.fit(X_train_pca, y_train)
 
 st.title('Soil Fertility Analysis')
 
-# Create input fields for all features
-input_values = {feature: st.number_input(f'Enter {feature} level:', key=feature) for feature in X.columns}
+# Create input fields for the top 6 features only
+input_values = {}
+for feature in top_features:
+    input_values[feature] = st.number_input(f'Enter {feature} level:', key=feature)
 
+# Button to perform analysis
 if st.button('Analyze'):
     # Prepare user input for prediction
-    user_input = np.array([input_values[feature] for feature in X.columns]).reshape(1, -1)
-    input_scaled = scaler.transform(user_input)
-    input_pca = pca.transform(input_scaled)
+    user_input_array = np.zeros(X.shape[1])  # Initialize an array with zeros for all features
+    for i, feature in enumerate(X.columns):
+        if feature in input_values:
+            user_input_array[i] = input_values[feature]  # Update the array with user-provided values for top features
+
+    user_input = user_input_array.reshape(1, -1)  # Reshape to match expected input shape
+    input_scaled = scaler.transform(user_input)  # Scale the user input
+    input_pca = pca.transform(input_scaled)  # Transform user input with PCA
     
     # Make prediction
     prediction = model.predict(input_pca)
     result = "High Fertile" if prediction[0] == 1 else "Low Fertile"
     st.write(f'The prediction is: {result}')
 
-    # Provide feedback based on mean thresholds
-    for feature in mean_thresholds.index:
+    # Provide feedback based on mean thresholds for the top features only
+    for feature in top_features:
         if input_values[feature] < mean_thresholds[feature]:
             feedback_message = f'{feature} level is below average, which may affect fertility.'
             if feature.startswith('N'):
