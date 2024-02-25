@@ -35,15 +35,20 @@ top_features = X.columns[sorted_indices][:5].tolist()
 # Streamlit app
 st.title('Soil Fertility Analysis')
 
+# Create a placeholder for all features with zeros
+user_input = np.zeros(len(X.columns))
+
 # Dynamically create input fields based on the top features
-input_data = []
-for feature in top_features:
-    input_data.append(st.number_input(f'Enter {feature} level:', key=feature))
+for i, feature in enumerate(X.columns):
+    if feature in top_features:
+        user_input[i] = st.number_input(f'Enter {feature} level:', key=feature)
+    else:
+        user_input[i] = 0  # Placeholder for features not in top_features
 
 if st.button('Analyze'):
     # Prepare user input for prediction
-    input_df = pd.DataFrame([input_data], columns=top_features)
-    input_scaled = scaler.transform(input_df)  # Scale the user input
+    user_input = user_input.reshape(1, -1)  # Reshape to match the expected input shape
+    input_scaled = scaler.transform(user_input)  # Scale the user input
     input_pca = pca.transform(input_scaled)  # Transform user input with PCA
     
     # Make prediction
