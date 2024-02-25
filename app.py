@@ -61,7 +61,7 @@ if st.button('Analyze'):
     # Provide feedback based on mean thresholds for the top features only
     for feature in top_features:
         if input_values[feature] < mean_thresholds[feature]:
-            feedback_message = f'{feature} level is below average, which may affect fertility.'
+            feedback_message = f'{feature} level is below average, which may affect crop yield.'
             if feature.startswith('N'):
                 feedback_message += 'Nitrogen-deficient plants produce smaller than normal fruit, leaves, and shoots and these can develop later than normal.'
             if feature.startswith('P'):
@@ -72,4 +72,18 @@ if st.button('Analyze'):
                 feedback_message += 'Low PH levels makes plant growth slower'
             if feature.startswith('Z'):
                 feedback_message += 'Zinc deficiency negatively affects plant growth.'
+            if feature.startswith('Fe'):
+                feedback_message += 'Iron deficiency will turn leaves to yellow'
+            if feature.startswith('E'):
+                feedback_message += 'Low EC level'
+            if feature.startswith('O'):
+                feedback_message += 'Low OC level'
+            if feature.startswith('S'):
+                feedback_message += 'Sulphur deficiency will make yellow coloration of the older leaves'
+            if feature.startswith('C'):
+                feedback_message += ' Deficiency of copper can lead to increased susceptibility to diseases like ergot, which can cause significant yield loss in small grains.'
+            if feature.startswith('M'):
+                feedback_message += 'Manganese deficiency in new leaves to be yellow to whitish with relatively wide, green areas along the veins.'
+            if feature.startswith('B'):
+                feedback_message += 'Boron deficiency will cause crinkling of leaves'
             st.write(feedback_message)
