@@ -63,5 +63,13 @@ if st.button('Analyze'):
         if input_values[feature] < mean_thresholds[feature]:
             feedback_message = f'{feature} level is below average, which may affect fertility.'
             if feature.startswith('N'):
-                feedback_message += ' Leaves may turn yellow.'
+                feedback_message += 'Nitrogen-deficient plants produce smaller than normal fruit, leaves, and shoots and these can develop later than normal.'
+            if feature.startswith('P'):
+                feedback_message += 'Phosphorus deficiency can cause leaves to darken and take on a dull, blue-green hue, which may lighten to pale in more extreme cases.'
+            if feature.startswith('K'):
+                feedback_message += 'Potassium deficiency in broadleaves causes leaves to turn yellow and then brown at the tips and margins and between veins.'
+            if feature.startswith('p'):
+                feedback_message += 'Low PH levels makes plant growth slower'
+            if feature.startswith('Z'):
+                feedback_message += 'Zinc deficiency negatively affects plant growth.'
             st.write(feedback_message)
