@@ -59,14 +59,14 @@ if st.button('Analyze'):
     if ph < mean_thresholds['pH']:
         st.write('pH level is below average')
     if n < mean_thresholds['N']:
-        st.write('n level is below average')
+        st.write('Nitrogen-deficient plants produce smaller than normal fruit, leaves, and shoots and these can develop later than normal')
     if p < mean_thresholds['P']:
-        st.write('p level is below average')
+        st.write('Phosphorus deficiency can cause leaves to darken and take on a dull, blue-green hue, which may lighten to pale in more extreme cases')
     if k < mean_thresholds['K']:
-        st.write('k level is below average')
+        st.write('Potassium deficiency in broadleaves causes leaves to turn yellow and then brown at the tips and margins and between veins.')
     if zn < mean_thresholds['Zn']:
-        st.write('zn level is below average')
+        st.write('Zinc deficiency negatively affects plant growth.')
     if fe < mean_thresholds['Fe']:
-        st.write('fe level is below average')
+        st.write('Fe Iron deficiency will turn leaves to yellow')
 
 
